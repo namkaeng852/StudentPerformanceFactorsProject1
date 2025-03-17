@@ -1,0 +1,28 @@
+CREATE OR REPLACE TABLE famous-daylight-453808-k7.StudentPerformanceFactors.StudentPerformanceFactors_Transformed AS
+SELECT 
+    *,  -- Select all original columns
+    
+    -- Study Efficiency
+    ROUND(Exam_Score / NULLIF(Hours_Studied_per_Week, 0), 2) AS Study_Efficiency,
+
+    -- Attendance-to-Study Ratio
+    ROUND(Attendance_Percentage / NULLIF(Hours_Studied_per_Week, 0), 2) AS Attendance_to_Study_Ratio,
+
+    -- Physical Activity vs. Study Time
+    ROUND(Physical_Activity_Hours_per_Week / NULLIF(Hours_Studied_per_Week, 0), 2) AS Physical_Activity_to_Study_Ratio,
+
+    -- Score Improvement Percentage
+    ROUND(((Exam_Score - Previous_Scores) / NULLIF(Previous_Scores, 0)) * 100, 2) AS Score_Improvement_Percentage,
+
+    -- Exam Performance Category
+    CASE 
+        WHEN Exam_Score BETWEEN 0 AND 39 THEN 'Very Poor'
+        WHEN Exam_Score BETWEEN 40 AND 54 THEN 'Poor'
+        WHEN Exam_Score BETWEEN 55 AND 69 THEN 'Average'
+	WHEN Exam_Score BETWEEN 70 AND 79 THEN 'Good'
+        WHEN Exam_Score BETWEEN 80 AND 89 THEN 'Very Good'
+        WHEN Exam_Score BETWEEN 90 AND 100 THEN 'Excellent'
+        ELSE 'Invalid Score'  -- Handles unexpected values
+    END AS Exam_Performance_Category
+
+FROM famous-daylight-453808-k7.StudentPerformanceFactors.StudentPerformanceFactors1;
