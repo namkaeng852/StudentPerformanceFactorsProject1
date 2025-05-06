@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Load the dataset
-df = pd.read_csv(r'D:\data_project2\StudentPerformanceFactors.csv')
+df = pd.read_csv(r'D:\data_project\StudentPerformanceFactors.csv')
 
 # Examine the Dataset
 # Checking the first few rows to understand the structure of the data
